@@ -25,6 +25,12 @@ const hasUniswapCommands = (txnData) => {
         return false
     }
 }
+
+const uniswapTxParsed = (txnData) => {
+    const parsed = universalInterface.parseTransaction({ data: txnData })
+    console.log('parsed tx : ', parsed);
+}
+
 // Getting Uniswap commands
 const uniswapCommands = (txnData) =>
     universalInterface.parseTransaction({ data: txnData }).args[0].toLowerCase();
@@ -144,4 +150,5 @@ module.exports = {
     uniswapV3DecodedInputArray,
     uniswapDeadline,
     uniswapFullDecodedInput,
+    uniswapTxParsed,
 };
