@@ -1,69 +1,39 @@
-const { abi: SwapRouterAbi} = require('@uniswap/universal-router/artifacts/contracts/UniversalRouter.sol/UniversalRouter.json')
+const { abi: SwapRouterAbi} = require('@uniswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json')
 const ethers = require("ethers");
-
-const util = require("util");
-const {
-    hasUniswapCommands,
-    uniswapCommands,
-    uniswapCommandArray,
-    uniswapInputArray,
-    uniswapDecodedInputArray,
-    uniswapV3DecodedInputArray,
-    uniswapDeadline,
-    uniswapFullDecodedInput,
-    uniswapTxParsed,
-} = require("../utils/uniswapDecoder/universalDecoder");
-
-require('dotenv').config()
-const provider = new ethers.providers.WebSocketProvider(process.env.WEBSOCKET_URL)
-// const rpcProvider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
 
 const contractInterface = new ethers.utils.Interface(SwapRouterAbi);
 
-let limit = 30
+require('dotenv').config()
+const provider = new ethers.providers.WebSocketProvider(process.env.WEBSOCKET_URL)
 
 const main = async () => {
     provider.on('pending', async (hash) => {
-        if(limit > 0) {
-            console.log('pending tx hash :', hash)
-            getTransaction(hash)
-            limit -= 1
-        }
+        getTransaction(hash)
     });
 };
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const UNISWAP_ADDRESSES = [
-    // '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', // swap router 02
-    // '0xE592427A0AEce92De3Edee1F18E0157C05861564', // swap router
-    '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', // universal swap router
+    '0xE592427A0AEce92De3Edee1F18E0157C05861564', // swap router
 ]
-const compose = (...fns) => arg => fns.reduce((composed, f) => f(composed),arg);
+
 let txIdx = 0
 const getTransaction = async (transactionHash) => {
-    for (let attempt = 1; attempt <= 4; attempt++) {
-        const txnData = await provider.getTransaction(transactionHash);
-        if(txnData) console.log('tx.to : ', txnData.to)
-        txnData
-            ? (UNISWAP_ADDRESSES.includes(txnData.to) && hasUniswapCommands(txnData['data']))
-                ? compose(
-                    console.log("uniswapCommands: ", util.inspect(uniswapCommands(txnData['data']), false, null, true )),
-                    console.log("uniswapCommandArray: ", util.inspect(uniswapCommandArray(txnData['data']), false, null, true )),
-                    console.log("uniswapInputArray: ", util.inspect(uniswapInputArray(txnData['data']), false, null, true)),
-                    console.log("uniswapDecodedInputArray: ", util.inspect(uniswapDecodedInputArray(txnData['data']), false, null, true )),
-                    console.log("uniswapV3DecodedInputArray: ", util.inspect(uniswapV3DecodedInputArray(txnData['data']), false, null, true )),
-                    console.log("uniswapDeadline: ", util.inspect(uniswapDeadline(txnData['data']), false, null, true )),
-                    console.log("uniswapFullDecodedInput: ", util.inspect(uniswapFullDecodedInput(txnData['data']), false, null, true)),
-                    console.log("uniswap Parsed data: ", util.inspect(uniswapTxParsed(txnData['data']), false, null, true))
-                )
-                : null
-            : null ;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        const tx = await provider.getTransaction(transactionHash);
+        if (tx) {
+            if (UNISWAP_ADDRESSES.includes(tx.to)) {
+                txIdx += 1
+                const data = tx.data
+                decodeTransaction(data, txIdx)
+                break
+            }
+        }
         await delay(1000);
     }
 }
 
 const decodeTransaction = (txInput, txIdx, isMulticall = false) => {
-    console.log('decodeTransaction : txInput : ', txInput)
     const decodedData = contractInterface.parseTransaction({ data: txInput })
 
     const functionName = decodedData.name

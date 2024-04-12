@@ -1,0 +1,123 @@
+{
+
+  uniswapCommands:  '0x0b080604',
+  uniswapCommandArray:  [ '0b', '08', '06', '04' ],
+  uniswapInputArray:  [
+    '0x000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000c3663566a58000',
+    '0x000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000c3663566a580000000000000000000000000000000000000000000000002e8c2d50302755ec5d600000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000006b448aeb3bfd1dcbe337d59f6dee159daab52768',
+    '0x0000000000000000000000006b448aeb3bfd1dcbe337d59f6dee159daab5276800000000000000000000000037a8f295612602f2774d331e562be9e61b83a3270000000000000000000000000000000000000000000000000000000000000019',
+    '0x0000000000000000000000006b448aeb3bfd1dcbe337d59f6dee159daab5276800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000002e6e62f5bf64ad63742'
+  ],
+  uniswapDecodedInputArray:  [
+    [
+      '0x0000000000000000000000000000000000000002',
+      BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true }
+    ],
+    [
+      '0x0000000000000000000000000000000000000002',
+      BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true },
+      BigNumber { _hex: '0x02e8c2d50302755ec5d6', _isBigNumber: true },
+      [
+        '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768'
+      ],
+      false
+    ],
+    [
+      '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+      '0x37a8f295612602f2774d331e562be9e61b83a327',
+      BigNumber { _hex: '0x19', _isBigNumber: true }
+    ],
+    [
+      '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+      '0x0000000000000000000000000000000000000001',
+      BigNumber { _hex: '0x02e6e62f5bf64ad63742', _isBigNumber: true }
+    ]
+  ],
+  uniswapV3DecodedInputArray:  [
+    [
+      '0x0000000000000000000000000000000000000002',
+      BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true }
+    ],
+    [
+      '0x0000000000000000000000000000000000000002',
+      BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true },
+      BigNumber { _hex: '0x02e8c2d50302755ec5d6', _isBigNumber: true },
+      [
+        '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768'
+      ],
+      false
+    ],
+    [
+      '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+      '0x37a8f295612602f2774d331e562be9e61b83a327',
+      BigNumber { _hex: '0x19', _isBigNumber: true }
+    ],
+    [
+      '0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+      '0x0000000000000000000000000000000000000001',
+      BigNumber { _hex: '0x02e6e62f5bf64ad63742', _isBigNumber: true }
+    ]
+  ],
+  uniswapDeadline:  BigNumber { _hex: '0x6618dc43', _isBigNumber: true },
+
+
+uniswapFullDecodedInput:  {
+contents: [
+{
+command: '0b',
+value: 'WRAP_ETH',
+inputType: [ 'address', 'uint256' ],
+decodedInput: [
+'0x0000000000000000000000000000000000000002',
+BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true }
+]
+},
+{
+command: '08',
+value: 'V2_SWAP_EXACT_IN',
+inputType: [ 'address', 'uint256', 'uint256', 'address[]', 'bool' ],
+decodedInput: [
+'0x0000000000000000000000000000000000000002',
+BigNumber { _hex: '0xc3663566a58000', _isBigNumber: true },
+BigNumber {
+_hex: '0x02e8c2d50302755ec5d6',
+_isBigNumber: true
+},
+[
+'0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+'0x6b448aeb3bfd1dcbe337d59f6dee159daab52768'
+],
+false
+]
+},
+{
+command: '06',
+value: 'PAY_PORTION',
+inputType: [ 'address', 'address', 'uint256' ],
+decodedInput: [
+'0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+'0x37a8f295612602f2774d331e562be9e61b83a327',
+BigNumber { _hex: '0x19', _isBigNumber: true }
+]
+},
+{
+command: '04',
+value: 'SWEEP',
+inputType: [ 'address', 'address', 'uint256' ],
+decodedInput: [
+'0x6b448aeb3bfd1dcbe337d59f6dee159daab52768',
+'0x0000000000000000000000000000000000000001',
+BigNumber {
+_hex: '0x02e6e62f5bf64ad63742',
+_isBigNumber: true
+}
+]
+}
+],
+deadline: BigNumber { _hex: '0x6618dc43', _isBigNumber: true }
+}
+
+
+}
